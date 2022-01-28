@@ -10,6 +10,8 @@
 
 ### database
 
+- database name "apy_calculator"
+
 - tables: 
     - users
         - table fields: id,
