@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "stable"
+install:
+  - npm ci
+cache:
+  directories:
+    - node_modules
+before_script:
+  - npm run pretest-travis
+script:
+  - npm test
+after_success:
+  - npm run coverage

@@ -1,8 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import db from './database/models/index';
 import Route from './routes/index';
 
+db.sequelize.sync({ force: true });
 const app = express();
 
 app.use(cors());
