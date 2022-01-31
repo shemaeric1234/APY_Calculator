@@ -11,6 +11,31 @@ describe('add user tests', () => {
     before(async () => {
         await db.user.create(user);
     });
+    it('should not get all users', (done) => {
+        chai.request(app).get('/api/v1/apy/getUsers')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.body.should.be.an('object');
+                done();
+            });
+    });
+    it('should not get a user', (done) => {
+        chai.request(app).get('/api/v1/apy/getUser/20')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.body.should.be.an('object');
+                done();
+            });
+    });
+
+    it('should not get all apys', (done) => {
+        chai.request(app).get('/api/v1/apy/getApys/300')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.body.should.be.an('object');
+                done();
+            });
+    });
     it('user created successfully', (done) => {
         chai.request(app).post('/api/v1/apy/add')
             .send(user).end((err, res) => {
@@ -38,6 +63,7 @@ describe('add user tests', () => {
                 done();
             });
     });
+
     it('should get all apys', (done) => {
         chai.request(app).get('/api/v1/apy/getApys/1')
             .end((err, res) => {

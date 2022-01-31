@@ -41,11 +41,16 @@ class userController {
   static async GetAllusers(req, res) {
     try {
       const allUsers = await apyServices.findAllusers();
+      const message = {};
+      if (allUsers.length === 0) {
+        message.message = 'No data found !';
+        message.status = 404;
+      }
       response.successMessage(
         res,
-        'users retrieved successfully',
-        200,
-        allUsers
+        message.message || 'Users retrieved successfully',
+        message.status || 200,
+        !message.message && allUsers
       );
     } catch (e) {
       return response.errorMessage(
@@ -59,11 +64,16 @@ class userController {
     try {
       const userId = parseInt(req.params.userID, 10)
       const user = await apyServices.findUserById(userId);
+      const message = {};
+      if (user === null) {
+        message.message = 'No data found !';
+        message.status = 404;
+      }
       response.successMessage(
         res,
-        'user retrieved successfully',
-        200,
-        user
+        message.message || 'user retrieved successfully',
+        message.status || 200,
+        !message.message && user
       );
     } catch (e) {
       return response.errorMessage(
